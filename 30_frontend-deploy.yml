@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: tagger-frontend
+  namespace: tagger
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tagger-frontend
+    spec:
+      containers:
+        - name: tagger-frontend
+          image: webeng.azurecr.io/tagger-frontend:latest
+          volumeMounts:
+            - name: certs
+              readOnly: true
+              mountPath: /etc/letsencrypt/live/gruppe7.testsites.info
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+      volumes:
+        - name: certs
+          secret:
+            secretName: testsites-info-secrets

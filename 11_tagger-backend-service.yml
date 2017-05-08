@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: tagger-backend
+  namespace: tagger
+spec:
+  selector:
+    app: tagger-backend
+  ports:
+    - port: 9000
+      targetPort: 9000
+      name: play

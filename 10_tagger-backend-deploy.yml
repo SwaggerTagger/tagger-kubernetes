@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: tagger-backend
+  namespace: tagger
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tagger-backend
+    spec:
+      containers:
+        - name: tagger-backend
+          image: webeng.azurecr.io/tagger-backend:latest
+          ports:
+            - containerPort: 9000
+          env:
+            - name: PLAY_APP_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secrets
+                  key: play_app_secret
+            - name: PICTURE_BLOB_CONN_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secrets
+                  key: picture_blob_conn_string
+                  imagePullSecrets:
+                    - name: regsecret
+

@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cert
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cert
+    spec:
+      containers:
+        - name: cert
+          image: linuxserver/letsencrypt
